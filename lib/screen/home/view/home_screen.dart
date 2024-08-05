@@ -67,43 +67,42 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           borderRadius: BorderRadius.circular(20),
                           gradient: const LinearGradient(
                               colors: [Colors.white12, Colors.black12])),
-                      child: Center(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            index != 8
-                                ? RotationTransition(
-                                    turns: controller!,
-                                    child: Hero(
-                                      tag:
-                                          "${providerW!.planetList[index].image}",
-                                      child: Image.network(
-                                        "${providerW!.planetList[index].image}",
-                                        height: 150,
-                                        width: 150,
-                                      ),
-                                    ),
-                                  )
-                                : Hero(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          index != 8
+                              ? RotationTransition(
+                                  turns: controller!,
+                                  child: Hero(
                                     tag:
                                         "${providerW!.planetList[index].image}",
-                                    child: Image.network(
+                                    child: Image.asset(
                                       "${providerW!.planetList[index].image}",
                                       height: 150,
                                       width: 150,
                                     ),
                                   ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              "${providerW!.planetList[index].name}",
-                              style: const TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        ),
+                                )
+                              : Hero(
+                                  tag:
+                                      "${providerW!.planetList[index].image}",
+                                  child: Image.asset(
+                                    "${providerW!.planetList[index].image}",
+                                    height: 150,
+                                    width: 150,
+                                  ),
+                                ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            "${providerW!.planetList[index].name}",
+                            style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),
+                          )
+                        ],
                       ),
                     ),
                   );
@@ -151,5 +150,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         ),
     ),
     );
+  }
+ @override
+  void dispose() {
+    // TODO: implement dispose
+   controller!.dispose();
+   super.dispose();
   }
 }

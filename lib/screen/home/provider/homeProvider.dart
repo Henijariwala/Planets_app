@@ -7,8 +7,8 @@ import '../../../utils/share_helper.dart';
 class HomeProvider with ChangeNotifier {
   List<Planet> planetList = [];
   List<String> bookMarkPlanet = [];
-  List<String>nameList = [];
-  List<String>imageList = [];
+  List<String> nameList = [];
+  List<String> imageList = [];
   bool isTheme = false;
   ThemeMode mode = ThemeMode.dark;
   IconData themeMode = Icons.dark_mode;
@@ -16,31 +16,39 @@ class HomeProvider with ChangeNotifier {
   ShareHelper shareHelper = ShareHelper();
 
   Future<void> setBookMark(String name1, String pImg) async {
-    List<String>? name = await shareHelper.getNameList();
-    List<String>? img = await shareHelper.getImageList();
-    if (name != null && img != null) {
-      name.add(name1);
-      img.add(pImg);
-      shareHelper.setNameList(name);
-      shareHelper.setImageList(img);
-    } else {
-      shareHelper.setNameList([name1]);
-      shareHelper.setImageList([pImg]);
-    }
-    shareHelper.getNameList();
-    shareHelper.getImageList();
+
+    List<String> name = await shareHelper.getNameList();
+    List<String> img = await shareHelper.getImageList();
+
+    name.add(name1);
+    img.add(pImg);
+
+    shareHelper.setNameList(name);
+    shareHelper.setImageList(img);
+
+    notifyListeners();
+  }
+  Future<void> removeBookMark(String name1, String pImg) async {
+
+    List<String> name = await shareHelper.getNameList();
+    List<String> img = await shareHelper.getImageList();
+
+    name.remove(name1);
+    img.remove(pImg);
+
+    shareHelper.setNameList(name);
+    shareHelper.setImageList(img);
+
+    getBookMark();
 
     notifyListeners();
   }
 
   Future<void> getBookMark() async {
-    var list = await shareHelper.getNameList();
-    var list2 = await shareHelper.getImageList();
-    if (list2 != null && list != null) {
-      nameList = list2;
-      imageList = list;
-      notifyListeners();
-    }
+    nameList = (await shareHelper.getNameList());
+    imageList = (await shareHelper.getImageList());
+    notifyListeners();
+
     }
 
   void setThemeData() async {
