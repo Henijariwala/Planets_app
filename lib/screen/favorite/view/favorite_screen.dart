@@ -34,7 +34,8 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
             width: MediaQuery.sizeOf(context).width,
             height: MediaQuery.sizeOf(context).height,
             fit: BoxFit.cover,
-          ):Image.asset(
+          ):
+          Image.asset(
             "assets/image/planet1.jpeg",
             width: MediaQuery.sizeOf(context).width,
             height: MediaQuery.sizeOf(context).height,
@@ -46,14 +47,27 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
               itemBuilder: (context, index) {
               return Column(
                 children: [
-                  Image.network(
-                    providerW!.imageList[index],
-                    height: 80,
-                  ),
-                  Text(
-                    providerW!.nameList[index],
-                    style: const TextStyle(fontSize: 5),
-                  ),
+              Container(
+              decoration: const BoxDecoration(
+              gradient: LinearGradient(colors: [
+                  Colors.white12,
+                  Colors.black12
+                  ])
+                ),
+                child: Row(
+                  children: [
+                    Image.asset(providerR!.imageList[index],height: 100,width: 100,),
+                    Text(providerW!.nameList[index],
+                      style: const TextStyle(fontSize: 20),
+                    ),
+                    const Spacer(),
+                    IconButton(onPressed: () {
+                      providerW!.removeBookMark(providerW!.nameList[index], providerW!.imageList[index]);
+                    }, icon: const Icon(Icons.delete))
+                  ],
+                ),
+              ),
+                  const SizedBox(height: 10,),
                 ],
               );
             },),

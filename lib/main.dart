@@ -8,7 +8,6 @@ void main() {
     providers: [ChangeNotifierProvider.value(value: HomeProvider())],
     child: Consumer<HomeProvider>(builder: (context, value, child) {
       value.getThemeData();
-      value.changeTheme();
       value.isTheme = value.isTheme;
       value.isOn == value.isTheme;
       return MaterialApp(

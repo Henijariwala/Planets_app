@@ -47,9 +47,6 @@ class _SplashScreenState extends State<SplashScreen> {
                       ),
                     ],
                     isRepeatingAnimation: true,
-                    onTap: () {
-                      print("Tap Event");
-                    },
                   ),
                 ],
               ),

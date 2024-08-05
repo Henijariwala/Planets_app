@@ -11,21 +11,23 @@ Future<bool?> getThemeName() async {
 }
 
 class ShareHelper {
-  Future<void> setImageList(List<String> l1) async {
+  Future<void> setImageList(List<String> image) async {
     SharedPreferences shr = await SharedPreferences.getInstance();
-    await shr.setStringList('planet', l1);
+    await shr.setStringList('image', image);
   }
-  Future<void> setNameList(List<String> l1) async {
+  Future<void> setNameList(List<String> name) async {
     SharedPreferences shr = await SharedPreferences.getInstance();
-    await shr.setStringList('planet', l1);
+    await shr.setStringList('name', name);
   }
 
-  Future<List<String>?> getNameList() async {
+  Future<List<String>> getNameList() async {
     SharedPreferences shr= await SharedPreferences.getInstance();
-    return shr.getStringList("name");
+    List<String>name= shr.getStringList("name")??[];
+    return name;
   }
-  Future<List<String>?> getImageList() async {
+  Future<List<String>> getImageList() async {
     SharedPreferences shr= await SharedPreferences.getInstance();
-    return shr.getStringList("image");
+    List<String>image= shr.getStringList("image")??[];
+    return image;
   }
 }

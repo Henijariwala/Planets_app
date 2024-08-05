@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:galaxy_planets/screen/home/model/home_model.dart';
 import 'package:galaxy_planets/screen/home/provider/homeProvider.dart';
@@ -33,9 +32,7 @@ class _DetailScreenState extends State<DetailScreen>with TickerProviderStateMixi
         centerTitle: true,
         actions: [
           IconButton(onPressed: () {
-            context.read<HomeProvider>().setBookMark(
-                l1.name!,
-                l1.image!);
+            context.read<HomeProvider>().setBookMark(l1.name!, l1.image!);
           }, icon: const Icon(Icons.favorite_border))
         ],
       ),
@@ -54,44 +51,45 @@ class _DetailScreenState extends State<DetailScreen>with TickerProviderStateMixi
           height: MediaQuery.sizeOf(context).height,
           fit: BoxFit.cover,
         ),
-            Center(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const SizedBox(height: 80,),
-                    Container(
-                      child: RotationTransition(
-                          turns: controller!,
-                          child: Hero(
-                            tag: "${l1.image}",
-                              child: Image.network("${l1.image}",
-                                fit: BoxFit.cover,height: 300,width: 300,))),
-                    ),
-                    const SizedBox(height: 50,),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          Text("${l1.position})",style: const TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
-                          const SizedBox(width: 10,),
-                          Text("${l1.name}",style: const TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 20,),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text("${l1.description}",style: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-                    ),
-                    Text("Velocity :=${l1.velocity}",style: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-                    Text("Distance :=${l1.distance}",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-                  ],
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(height: 80,),
+                RotationTransition(
+                    turns: controller!,
+                    child: Hero(
+                      tag: "${l1.image}",
+                        child: Image.asset("${l1.image}",
+                          fit: BoxFit.cover,height: 300,width: 300,))),
+                const SizedBox(height: 50,),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Text("${l1.position})",style: const TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
+                      const SizedBox(width: 10,),
+                      Text("${l1.name}",style: const TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
+                    ],
+                  ),
                 ),
-              ),
+                const SizedBox(height: 20,),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text("${l1.description}",style: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                ),
+                Text("Velocity :=${l1.velocity}",style: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                Text("Distance :=${l1.distance}",style: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+              ],
             )
         ]
             ),
       ),
     );
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    controller!.dispose();
+    super.dispose();
   }
 }
